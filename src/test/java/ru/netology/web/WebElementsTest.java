@@ -90,8 +90,8 @@ public class WebElementsTest {
     @Test
     public void shouldNotEmptyNameField() {
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79277656556");
-        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
-        driver.findElement(By.tagName("button")).click(); // Отправить
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.tagName("button")).click();
 
         String text = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", text.trim());
@@ -100,8 +100,8 @@ public class WebElementsTest {
     @Test
     public void shouldNotEmptyPhoneField() {
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
-        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
-        driver.findElement(By.tagName("button")).click(); // Отправить
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.tagName("button")).click();
 
         String text = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", text.trim());
