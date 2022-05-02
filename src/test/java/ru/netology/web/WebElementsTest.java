@@ -1,5 +1,6 @@
 package ru.netology.web;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +22,12 @@ public class WebElementsTest {
 
     @BeforeEach
     public void setUp1() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
@@ -32,7 +38,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldOpenBrowser() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79277656556");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
@@ -44,7 +49,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldPhoneFieldValidation() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+7(927)765-65-56");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -56,7 +60,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldBeExposedConsentFlag() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79277656556");
         driver.findElement(By.tagName("button")).click();
@@ -67,7 +70,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldBeACheckOfWritingOnlyRussianLettersSpacesAndHyphens() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Petrov Ivan");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79277656556");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
@@ -79,7 +81,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldNotBeEmptyForm() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.tagName("button")).click();
 
         String text = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText();
@@ -88,7 +89,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldNotEmptyNameField() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79277656556");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
         driver.findElement(By.tagName("button")).click(); // Отправить
@@ -99,7 +99,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldNotEmptyPhoneField() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click(); // чекбокс
         driver.findElement(By.tagName("button")).click(); // Отправить
@@ -110,7 +109,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldFirstNameFieldValidationDash() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кириллова Алла-Виктория");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79206161994");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -122,7 +120,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldLastNameFieldValidationDash() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кириллова-Деникина Алла");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79206161994");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -134,7 +131,6 @@ public class WebElementsTest {
 
     @Test
     public void shouldFirstAndLastNameFieldValidationDash() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кириллова-Деникина Алла-Виктория");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79206161994");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
