@@ -12,7 +12,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WebElementsTest {
-    private WebDriver driver;
+    WebDriver driver;
 
     @BeforeAll
     public static void setUp() {
@@ -64,7 +64,6 @@ public class WebElementsTest {
         String text = driver.findElement(By.cssSelector("[data-test-id=agreement].input_invalid .checkbox__text")).getText();
         assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", text.trim());
     }
-
 
 
 }
